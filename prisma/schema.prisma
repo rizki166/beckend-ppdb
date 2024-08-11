@@ -23,3 +23,29 @@ model User {
 
   @@index([username])
 }
+
+model Ppdb{
+    id             Int      @id @default(autoincrement())
+  nama           String
+  nisn           String   @unique
+  ttl            String   
+  nik            String   @unique 
+  noKK           String   
+  alamat         String
+  namaAyah       String
+  tahunLahirAyah Int
+  pendidikanAyah String
+  pekerjaanAyah  String
+  namaIbu        String
+  tahunLahirIbu  Int
+  pendidikanIbu  String
+  pekerjaanIbu   String
+  alamatOrtu     String   
+  noTelp         String
+  imageMurid      String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([nisn])
+  @@index([nik])
+}
