@@ -24,13 +24,13 @@ model User {
   @@index([username])
 }
 
-model Ppdb{
-    id             Int      @id @default(autoincrement())
+model Ppdb {
+  id             Int      @id @default(autoincrement())
   nama           String
   nisn           String   @unique
-  ttl            String   
-  nik            String   @unique 
-  noKK           String   
+  ttl            String
+  nik            String   @unique
+  noKK           String
   alamat         String
   namaAyah       String
   tahunLahirAyah Int
@@ -40,9 +40,9 @@ model Ppdb{
   tahunLahirIbu  Int
   pendidikanIbu  String
   pekerjaanIbu   String
-  alamatOrtu     String   
+  alamatOrtu     String
   noTelp         String
-  imageMurid      String
+  image          String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
