@@ -1,43 +1,26 @@
 import db from "../db/index";
 import { IPpdb } from "../types/app";
 
-export const create = async (payload: IPpdb, files: Express.Multer.File) => {
+export const create = async (
+  payload: Omit<IPpdb, "image">,
+  files: { [fieldname: string]: Express.Multer.File[] }
+) => {
   try {
-    console.log("files", files);
-
-    if (files) {
-      payload.image = files.filename as string;
-    }
-    console.log("payload ", payload.pekerjaanAyah);
-    console.log("payload ", payload.pekerjaanIbu);
-    console.log("payload ", payload.image);
-    console.log("payload ", payload);
-
     const ppdb = await db.ppdb.create({
       data: {
-        nama: payload.nama,
-        nisn: payload.nisn,
-        ttl: payload.ttl,
-        nik: payload.nik,
-        noKK: payload.noKK,
-        alamat: payload.alamat,
-        namaAyah: payload.namaAyah,
-        tahunLahirAyah: Number(payload.tahunLahirAyah),
-        pendidikanAyah: payload.pendidikanAyah,
-        pekerjaanAyah: payload.pekerjaanAyah,
-        namaIbu: payload.namaIbu,
-        tahunLahirIbu: Number(payload.tahunLahirIbu),
-        pendidikanIbu: payload.pendidikanIbu,
-        pekerjaanIbu: payload.pekerjaanIbu,
-        alamatOrtu: payload.alamatOrtu,
-        image: payload.image,
-        noTelp: payload.noTelp,
+        ...payload,
+        image: {
+          create: files.image.map((img) => ({
+            url: img.filename,
+          })),
+        },
       },
     });
-    console.log(ppdb, "ppob ser");
+
     return ppdb;
   } catch (error) {
-    console.error("Error during create:", error);
+    console.error("Error creating PPDB:", error);
+    throw error;
   }
 };
 
@@ -45,19 +28,24 @@ export const getPpdb = async (id: number) => {
   try {
     const ppdb = await db.ppdb.findUnique({
       where: { id },
+      include: { image: true },
     });
     return ppdb;
   } catch (error) {
     console.error("Error fetching PPDB:", error);
+    throw error;
   }
 };
 
 export const getsPpdb = async () => {
   try {
-    const ppdb = await db.ppdb.findMany();
+    const ppdb = await db.ppdb.findMany({
+      include: { image: true },
+    });
     return ppdb;
   } catch (error) {
     console.error("Error fetching all PPDB:", error);
+    throw error;
   }
 };
 
@@ -69,5 +57,6 @@ export const deletePpdb = async (id: number) => {
     return ppdb;
   } catch (error) {
     console.error("Error deleting PPDB:", error);
+    throw error; 
   }
 };

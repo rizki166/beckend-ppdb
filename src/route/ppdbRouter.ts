@@ -9,7 +9,7 @@ import uploadMiddleware from "../middleware/upload";
 
 const ppdbRouter = Router();
 
-ppdbRouter.post("/ppdb",uploadMiddleware("image"), createPpdb);
+ppdbRouter.post("/ppdb", uploadMiddleware(), createPpdb);
 ppdbRouter.get("/ppdb/:id", getPpdb);
 ppdbRouter.get("/ppdb", getAllPpdb);
 ppdbRouter.delete("/ppdb/:id", deletePpdb);

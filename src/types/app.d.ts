@@ -10,14 +10,14 @@ export interface IPpdb {
   noKK: string;
   alamat: string;
   namaAyah: string;
-  tahunLahirAyah: number;
+  tahunLahirAyah: string;
   pendidikanAyah: string;
   pekerjaanAyah: string;
   namaIbu: string;
-  tahunLahirIbu: number;
+  tahunLahirIbu: string;
   pendidikanIbu: string;
   pekerjaanIbu: string;
   alamatOrtu: string;
-  image: string;
+  image: string[];
   noTelp: string;
 }
